@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 
 // Components
 import Header from './components/Header/Header';
-import ItemListContainer from './ItemListContainer/ItemListContainer'
+import ItemListContainer from './components/ItemListContainer/ItemListContainer'
 
 
 class App extends React.Component {
