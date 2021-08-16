@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 
-export const GenericWidget = (props) =>{
+export const CartWidget = (props) =>{
 
     return(
            <FontAwesomeIcon icon={props.icon} />

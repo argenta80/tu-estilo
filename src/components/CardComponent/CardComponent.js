@@ -1,19 +1,28 @@
 import React from 'react'
-import { Card, Image } from 'semantic-ui-react'
+import { Card, Image , Button} from 'semantic-ui-react'
+import 'semantic-ui-css/semantic.min.css';
 
-const CardComponent = ({name , date , description , img}) => (
+const CardComponent = ({product , description , img}) => (
   <Card>
-    <Image src={img} wrapped ui={false} />
     <Card.Content>
-      <Card.Header>{name}</Card.Header>
-      <Card.Meta>
-        <span className='date'>{date}</span>
-      </Card.Meta>
+      <Image src={img}
+      />
+      <Card.Header>{product}</Card.Header>
       <Card.Description>
         {description}
       </Card.Description>
     </Card.Content>
+    <Card.Content extra>
+      <div className='ui two buttons'>
+        <Button basic color='green'>
+          +
+        </Button>
+        <Button basic color='red'>
+          -
+        </Button>
+      </div>
+    </Card.Content>
   </Card>
 )
 
-export default CardComponent
+export default CardComponent;

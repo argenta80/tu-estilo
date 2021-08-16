@@ -1,4 +1,4 @@
-import { GenericWidget } from './GenericWidget/GenericWidget';
+import { CartWidget } from './CartWidget/CartWidget';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 const NavBar = () => {
     
@@ -32,7 +32,7 @@ const NavBar = () => {
                     </ul>
                     </li>  
                 </ul>
-                        <div><GenericWidget icon={faShoppingCart} /></div>
+                        <div><CartWidget icon={faShoppingCart} /></div>
                 </div>
             </div>
         </nav>
