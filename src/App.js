@@ -24,7 +24,8 @@ class App extends React.Component {
         </div>
         <div>
           <ItemCounter 
-          title = 'Contador, el limite del contador es 30'
+          title = 'Pantalon de algodon'
+          stock = '30'
           />
         </div>
       </div>
