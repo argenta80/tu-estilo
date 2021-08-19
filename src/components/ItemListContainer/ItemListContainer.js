@@ -1,16 +1,30 @@
-import React from 'react'
-import { Card, Image } from 'semantic-ui-react'
+import { useEffect, useState } from "react";
+import { ItemList } from "../ItemList/ItemList";
 
-const ItemListContainer = ({product , description , img}) => (
-  <Card>
-    <Image src={img} wrapped ui={false} />
-    <Card.Content>
-      <Card.Header>{product}</Card.Header>
-      <Card.Description>
-        {description}
-      </Card.Description>
-    </Card.Content>
-  </Card>
-)
 
-export default ItemListContainer
+const URL = 'https://jsonplaceholder.typicode.com/posts';
+
+export const ItemListContainer = () => {
+
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        fetch(URL)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data)
+            setItems(data)
+        })
+
+    }, [])
+
+    return(
+        <div>
+            <div>
+                {<ItemList items={items}/>}
+            </div>
+        </div>
+    )
+}
