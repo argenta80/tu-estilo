@@ -15,7 +15,7 @@ const ItemDetailContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    productsService.then((response) => setItem(response)).finally(() => setIsLoading(false) );
+    productsService.then((response) => setItem(response.filter((items) => items.id === 1)[0])).finally(() => setIsLoading(false) );
     
   }, []);
   
