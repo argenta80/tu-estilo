@@ -4,32 +4,27 @@ import ItemCounter from  '../ItemCounter/ItemCounter'
 import "./ItemDetail.css";
 
 const ItemDetail = ({ item }) => {
-  console.log(item)
   
   return (
     <Container>
-      <Card style={{width: 900}}>
+      <Card style={{width: 500}}>
         <Carousel 
-              //  img1={item[0].image1}
-              // img2={item[0].image2}
-              // img3={item[0].image3}
-          />
+          img1={item[0].image1}
+          img2={item[0].image2}
+          img3={item[0].image3}
+         /> 
         <Card.Content>
-          <Card.Header>{/* {item[0].name} */}</Card.Header>
+          <Card.Header> {item[0].name} </Card.Header>
+            <span className='date'><strong>${item[0].price}</strong></span>
           <Card.Meta>
-            {/* {item[0].preice} */}
-            {/* {item[0].stock} */}
+          <span className='date'><strong>Disponibilidad: {item[0].stock}</strong></span>
           </Card.Meta>
           <Card.Description>
-            {/* {item[0].descrition} */}
+          {item[0].description}
           </Card.Description>
         </Card.Content>
-        <Card.Content extra>
-          
-        </Card.Content>
-        <ItemCounter /* stock={item[0].stock} */ />
+        <ItemCounter stock={item[0].stock} />
       </Card>
-
          
     </Container> 
 
