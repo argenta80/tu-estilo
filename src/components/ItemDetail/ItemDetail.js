@@ -4,14 +4,6 @@ import ItemCounter from  '../ItemCounter/ItemCounter'
 import "./ItemDetail.css";
 
 const ItemDetail = ({ item }) => {
-  console.log(item)
-  console.log(item.image1)
-  console.log(item.image2)
-  console.log(item.image3)
-  console.log(item.name)
-  console.log(item.price)
-  console.log(item.stock)
-  console.log(item.description)
   
   return (
     <Container>
