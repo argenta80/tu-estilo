@@ -4,21 +4,23 @@ import ItemCounter from '../ItemCounter/ItemCounter';
 
 
 export const Item = ({ items }) => {
-    const randomImageUrl = `https://source.unsplash.com/random/200x200?sig=${items.id}`;
 
     return(
         <Card>
-            <Image className='imagen' src={randomImageUrl} wrapped ui={false} />
             <Card.Content>
-					<Card.Header>{items.title}</Card.Header>
-					<Card.Meta>
-						<span className='date'>{items.body}</span>
-					</Card.Meta>
-					<Card.Description>{items.url}</Card.Description>
-                    <ItemCounter
-                    stock={30} />
-			</Card.Content>
+            <Card.Header>{items.name}</Card.Header>
+                <Image src={items.image} wrapped ui={false}  width='200px' height='250px' />      
+            <Card.Meta>
+                <span className='date'>$ {items.price}</span>
+            </Card.Meta>
+            <Card.Description>
+                {items.description}
+            </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+            <ItemCounter stock={items.stock} />
+            
+            </Card.Content>
         </Card>
-        
     )
 }
