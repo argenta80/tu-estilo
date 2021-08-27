@@ -1,35 +1,35 @@
 import { CartWidget } from './CartWidget/CartWidget';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/#">Tu Estilo</a>
+                <Link className="navbar-brand" to="/">Tu Estilo</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul className="navbar-nav">
                     <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/#">Home</a>
+                    <Link to="/category/hombre" className="nav-link active" aria-current="page" >Hombre</Link>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="https://www.reebok.com.ar/mujer-outlet">50% OFF</a>
+                    <Link to="/category/mujer"  className="nav-link" >Mujer</Link>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="https://ar.pinterest.com/">Products</a>
+                    <Link to="/category/Products"  className="nav-link" href="https://ar.pinterest.com/">Products</Link>
                     </li>
                     <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" href="/#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="true">
+                    <Link to="/"  className="nav-link dropdown-toggle" href="/#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="true">
                         Categorias
-                    </a>
+                    </Link>
                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a className="dropdown-item" href="/#">Ropa Hombre</a></li>
-                        <li><a className="dropdown-item" href="/#">Ropa Mujer</a></li>
-                        <li><a className="dropdown-item" href="/#">Accesorios Hombre</a></li>
-                        <li><a className="dropdown-item" href="/#">Accesorios Mujer</a></li>
+                        <li><Link to="/category/hombre"  className="dropdown-item">Ropa Hombre</Link></li>
+                        <li><Link to="/category/mujer"  className="dropdown-item" >Ropa Mujer</Link></li>
+                        <li><Link to="/category/accesorios"  className="dropdown-item">Accesorios </Link></li>
                     </ul>
                     </li>  
                 </ul>

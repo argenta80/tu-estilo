@@ -13,6 +13,7 @@ export const items = [
     {
         name: "Conjunto Camisa-pantalon",
         id: 1,
+        categoria: 'mujer',
         price: 350,
         stock: 50,
         description: "Camisa y pantalon de jeans para mujer, varios talles. Moda Primavera/Verano",
@@ -25,6 +26,7 @@ export const items = [
     {
         name: "Reloj Hombre",
         id: 2,
+        categoria: 'hombre',
         price: 50000,
         stock: 10,
         description: "Reloj digital Hombre, malla intercambiable.",
@@ -34,6 +36,7 @@ export const items = [
     {
       name: "camisa",
       id: 3,
+      categoria: 'hombre',
       price: 5000,
       stock: 20,
       description: "Camisa Celeste Hombre 100% algodon",
@@ -43,6 +46,7 @@ export const items = [
     {
         name: "Camara Nicon",
         id: 4,
+        categoria: 'accesorio',
         price: 3500,
         stock: 50,
         description: "Camara profesional Nicon con flash ",
@@ -52,6 +56,7 @@ export const items = [
       {
         name: "Reloj Mujer",
         id: 5,
+        categoria: 'mujer',
         price: 350,
         stock: 20,
         description: "Elegante reloj analogico, malla metalica. Colores de malla Cobre, Plata o aluminio ",
@@ -61,6 +66,7 @@ export const items = [
       {
         name: "Anteojos de Sol",
         id: 6,
+        categoria: 'accesorio',
         price: 400,
         stock: 50,
         description: "Anteojos de Sol con filtro UV ",
@@ -70,6 +76,7 @@ export const items = [
       {
         name: "Sombrero Playa Mujer",
         id: 7,
+        categoria: 'accesorio',
         price: 150,
         stock: 50,
         description: "Sombrero de playa ecologico para mujer ",
