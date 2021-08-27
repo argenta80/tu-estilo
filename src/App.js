@@ -14,7 +14,7 @@ class App extends React.Component {
   render() {
     return(
       <div className='App'>
-        <Header title ='Tu estilo, una empresa joven pero con mucha experinecia' />
+        <Header title ='Tu estilo, una empresa joven pero con mucha Experinecia' />
         <NavBar />
         <div className='Card-Container'>
         </div>
