@@ -20,7 +20,7 @@ const NavBar = () => {
                     <Link to="/category/mujer"  className="nav-link" >Mujer</Link>
                     </li>
                     <li className="nav-item">
-                    <Link to="/category/Products"  className="nav-link" href="https://ar.pinterest.com/">Products</Link>
+                    <Link to="/category/accesorios"  className="nav-link" >Accesorios</Link>
                     </li>
                     <li className="nav-item dropdown">
                     <Link to="/"  className="nav-link dropdown-toggle" href="/#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="true">

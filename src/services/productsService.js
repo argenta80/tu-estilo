@@ -46,7 +46,7 @@ export const items = [
     {
         name: "Camara Nicon",
         id: 4,
-        categoria: 'accesorio',
+        categoria: 'accesorios',
         price: 3500,
         stock: 50,
         description: "Camara profesional Nicon con flash ",
@@ -66,7 +66,7 @@ export const items = [
       {
         name: "Anteojos de Sol",
         id: 6,
-        categoria: 'accesorio',
+        categoria: 'accesorios',
         price: 400,
         stock: 50,
         description: "Anteojos de Sol con filtro UV ",
@@ -76,7 +76,7 @@ export const items = [
       {
         name: "Sombrero Playa Mujer",
         id: 7,
-        categoria: 'accesorio',
+        categoria: 'accesorios',
         price: 150,
         stock: 50,
         description: "Sombrero de playa ecologico para mujer ",
