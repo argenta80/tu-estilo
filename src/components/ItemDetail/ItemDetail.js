@@ -1,9 +1,12 @@
+import React from 'react';
 import {Container, Card} from 'semantic-ui-react';
 import Carousel from '../Carousel/Carousel';
 import ItemCounter from  '../ItemCounter/ItemCounter'
 import "./ItemDetail.css";
 
 const ItemDetail = ({ item }) => {
+
+  console.log(item)
   
   return (
     <Container>

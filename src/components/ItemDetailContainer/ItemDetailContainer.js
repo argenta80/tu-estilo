@@ -3,6 +3,7 @@ import ItemDetail from '../ItemDetail/ItemDetail'
 import { items } from "../../services/productsService";
 import Spinner from '../Spinner/Spinner';
 import './ItemDetailContainer.css'
+import { useParams } from 'react-router-dom';
 
 const productsService = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -11,23 +12,36 @@ const productsService = new Promise((resolve, reject) => {
 });
 
 const ItemDetailContainer = () => {
-  const [items, setItem] = useState([]);
+  const [Resultadoitems, setItem] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const {itemId} = useParams()
 
-  useEffect(() => {
-    productsService.then((response) => setItem(response.filter((items) => items.id === 1)[0])).finally(() => setIsLoading(false) );
-    
-  }, []);
+  // useEffect(()=> {
+
+  //   productsService.then((items)=> {
+  //     setItem(items)
+  //   })
+
+  // }, [])
+
   
+  useEffect(() => {
+    productsService.then((response) => setItem(response.filter((items) => items.id === itemId)[0])).finally(() => setIsLoading(false) );
+    
+  }, [itemId]);
+  
+  console.log(items)
 
   // Ver video After class donde hace recoje solo un item
   return (
+
     <div className='ItemDetailContainer'>
+      <h2 ></h2>
     
-    { isLoading ? <Spinner /> : <ItemDetail item={items} />}
+    { isLoading ? <Spinner /> : <ItemDetail item={Resultadoitems} />}
     
     </div>
-  );
-};
+  )
+}
 
 export default ItemDetailContainer
