@@ -4,7 +4,7 @@ import { items } from "../../services/productsService";
 import { useParams } from "react-router-dom";
 
 export const ItemListContainer = () => {
-  const [Resultadoitems, setItem] = useState([]);
+  const [ResultadoItems, setResultadoItems] = useState([]);
   const {categoryId} = useParams()
   
   useEffect(() => {
@@ -19,7 +19,7 @@ export const ItemListContainer = () => {
       })
 
       productsService.then((items) => {
-        setItem(items)
+        setResultadoItems(items)
       })
       }, [categoryId]);
 
@@ -27,7 +27,7 @@ export const ItemListContainer = () => {
         <div>
           <h4>{categoryId}</h4>
             <div>
-                {<ItemList items={Resultadoitems} />}
+                {<ItemList items={ResultadoItems} />}
             </div>
         </div>
     )

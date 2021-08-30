@@ -12,34 +12,28 @@ const productsService = new Promise((resolve, reject) => {
 });
 
 const ItemDetailContainer = () => {
-  const [Resultadoitems, setItem] = useState({});
+  const [ResultadoItems, setResultadoItems] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const {itemId} = useParams()
 
-  // useEffect(()=> {
-
-  //   productsService.then((items)=> {
-  //     setItem(items)
-  //   })
-
-  // }, [])
 
   
   useEffect(() => {
-    productsService.then((response) => setItem(response.filter((items) => items.id === itemId)[0])).finally(() => setIsLoading(false) );
-    
+    productsService 
+      .then((response) => {
+        const [filteredItem] = response.filter((items) => {
+          return items.id === Number(itemId);
+        })
+        setResultadoItems(filteredItem);
+        })
+        .finally(() => setIsLoading(false));
   }, [itemId]);
-  
-  console.log(items)
 
-  // Ver video After class donde hace recoje solo un item
   return (
 
+    
     <div className='ItemDetailContainer'>
-      <h2 ></h2>
-    
-    { isLoading ? <Spinner /> : <ItemDetail item={Resultadoitems} />}
-    
+      { isLoading ? <Spinner /> : <ItemDetail item={ResultadoItems} />}
     </div>
   )
 }

@@ -8,7 +8,7 @@ import ItemCounter from '../ItemCounter/ItemCounter';
 export const Item = ({ items }) => {
 
     return(
-        <Link to={`/tiem/${items.id}`}>
+        <Link to={`/item/${items.id}`}>
             <Card>
                 <Card.Content>
                 <Card.Header>{items.name}</Card.Header>
