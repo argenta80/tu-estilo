@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, Image } from 'semantic-ui-react';
-import ItemCounter from '../ItemCounter/ItemCounter';
 
 
 
@@ -19,10 +18,6 @@ export const Item = ({ items }) => {
                 <Card.Description>
                     {items.description}
                 </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                <ItemCounter stock={items.stock} />
-                
                 </Card.Content>
             </Card>
         </Link>

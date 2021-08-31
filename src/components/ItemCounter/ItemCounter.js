@@ -1,12 +1,19 @@
 import React, {useState} from 'react'
 import { Icon, Button, Container, Segment} from 'semantic-ui-react'
+import { Link } from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css';
 
 
 const ItemCounter = ({stock}) => {
   const [counter, setCounter] = useState(0);
+  const [cartBtn, setCartBtn] = useState(false);
   const incrementalBtn = document.getElementsByClassName('incrementalBtn');
   const decrementalBtn = document.getElementsByClassName('decrementalBtn');
+
+  const handleAddCart = () =>{
+    setCartBtn(true);
+  }
+
   const handleIncrement = () => {
     counter < stock ? setCounter( counter + 1) : incrementalBtn.disabled = false ;
   }
@@ -23,7 +30,7 @@ const ItemCounter = ({stock}) => {
           <Button className='decrementalBtn' basic color ='red' onClick={handleDecrement}> <Icon className = 'minus'/></Button>
         </div>
         <div>
-          <Button className='addCart' basic>Agregar al carrito</Button>
+          <Link to={'/cart'}><Button className='addCart' basic onClick={handleAddCart}>Agregar al carrito</Button></Link>
         </div>
       </Segment>
     </Container>

@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Header from './components/Header/Header';
 import { ItemListContainer } from './components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
+import Cart from './components/Cart/Cart';
 
 
 class App extends React.Component {
@@ -32,6 +33,11 @@ class App extends React.Component {
             <Route path='/item/:itemId'>
               <div>
                 <ItemDetailContainer />
+              </div>
+            </Route>
+            <Route path='/cart'>
+              <div>
+                <Cart/>
               </div>
             </Route>
           </Switch>
