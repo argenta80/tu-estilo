@@ -3,10 +3,13 @@ import {Container, Card} from 'semantic-ui-react';
 import Carousel from '../Carousel/Carousel';
 import ItemCounter from  '../ItemCounter/ItemCounter'
 import "./ItemDetail.css";
-
+import { useCartContext } from '../context/CartContext';
 const ItemDetail = ({ item }) => {
-
-  console.log(item)
+  const{ addToCart } = useCartContext();
+  
+  const onAdd = (count) => {
+    addToCart(item,count)
+  };
   
   return (
     <Container>
@@ -26,7 +29,7 @@ const ItemDetail = ({ item }) => {
           {item.description}
           </Card.Description>
         </Card.Content>
-        <ItemCounter stock={item.stock} />
+        <ItemCounter stock={item.stock} onAdd={onAdd}/>
       </Card>
          
     </Container> 

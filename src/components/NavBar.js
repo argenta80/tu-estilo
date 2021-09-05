@@ -1,8 +1,14 @@
 import { CartWidget } from './CartWidget/CartWidget';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { useCartContext } from './context/CartContext'
 
 const NavBar = () => {
+    const { cart } = useCartContext();
+
+    const totalItems = cart.reduce((acc, item) => {
+        return acc + item.quantity
+    }, 0);
     
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,7 +39,7 @@ const NavBar = () => {
                     </ul>
                     </li>  
                 </ul>
-                        <div><CartWidget icon={faShoppingCart} /></div>
+                        <div><CartWidget icon={faShoppingCart} />{totalItems}</div>
                 </div>
             </div>
         </nav>
