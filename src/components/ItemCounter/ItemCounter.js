@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import 'semantic-ui-css/semantic.min.css';
 
 
+
 const ItemCounter = (props) => {
   const [counter, setCounter] = useState(0);
   const incrementalBtn = document.getElementsByClassName('incrementalBtn');
@@ -16,8 +17,9 @@ const ItemCounter = (props) => {
   const handleDecrement = () => {
     counter <= 0 ? decrementalBtn.disabled = false : setCounter( counter - 1);
   }
+
   return(
-    <Container>
+    <Container style={{width: 400, height: 500, paddingTop: 15}}>
       <Segment>
         <p>{counter}</p>
         <div className='ui two buttons'>

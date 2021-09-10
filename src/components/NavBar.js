@@ -1,7 +1,7 @@
 import { CartWidget } from './CartWidget/CartWidget';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { useCartContext } from './context/CartContext'
+import { useCartContext } from '../context/CartContext'
 
 const NavBar = () => {
     const { cart } = useCartContext();

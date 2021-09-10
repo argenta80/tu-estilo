@@ -3,7 +3,7 @@ import './App.css';
 import './components/NavBar';
 import { BrowserRouter , Route, Switch} from 'react-router-dom';
 import NavBar from './components/NavBar';
-import { CartProvider } from "./components/context/CartContext"
+import { CartProvider } from "./context/CartContext"
 
 // Components
 import Header from './components/Header/Header';
@@ -17,7 +17,6 @@ class App extends React.Component {
   render() {
     return(
       <CartProvider>
-
         <BrowserRouter>
           <div className='App'>
             <Header title ='Tu estilo, una empresa joven pero con mucha experinecia' />
