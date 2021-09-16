@@ -1,9 +1,0 @@
-.Header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(163, 227, 230);
-    min-height: 20vh;
-    font-size: x-large;
-    font-style: oblique;
-}

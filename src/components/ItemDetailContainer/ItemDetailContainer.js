@@ -4,6 +4,8 @@ import { items } from "../../services/productsService";
 import Spinner from '../Spinner/Spinner';
 import './ItemDetailContainer.css'
 import { useParams } from 'react-router-dom';
+import { db } from '../../firebase';
+
 
 const productsService = new Promise((resolve, reject) => {
   setTimeout(() => {
@@ -16,9 +18,28 @@ const ItemDetailContainer = () => {
   const [isLoading, setIsLoading] = useState(true);
   const {itemId} = useParams()
 
+  const [products, setProducts] = useState([]);
 
+  const getProducts = async () => {
+    db.collection("products").onSnapshot((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data(), doc.id);
+        
+      });
+    });
+    // const q = query(collection(db, 'products'));
+    // const querySnapshot = await getDocs(q);
+    // querySnapshot.forEach((doc) => {
+    //   console.log(doc.id, '=>', doc.data);
+    // });
+  };
+
+
+  useEffect (()=> {
+    getProducts();
+  }, []);
   
-  useEffect(() => {
+ /*  useEffect(() => {
     productsService 
       .then((response) => {
         const [filteredItem] = response.filter((items) => {
@@ -27,7 +48,7 @@ const ItemDetailContainer = () => {
         setResultadoItems(filteredItem);
         })
         .finally(() => setIsLoading(false));
-  }, [itemId]);
+  }, [itemId]); */
 
   return (
 
