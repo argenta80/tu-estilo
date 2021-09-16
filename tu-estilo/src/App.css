@@ -1,0 +1,12 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.Card-Container{
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
