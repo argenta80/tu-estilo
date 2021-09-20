@@ -1,36 +1,43 @@
 import { useEffect, useState } from "react";
 import { ItemList } from "../ItemList/ItemList";
-import { items } from "../../services/productsService";
 import { useParams } from "react-router-dom";
-// import { useCartContext } from "../context/CartContext"; 
+import { db } from '../../firebase';
+
 
 export const ItemListContainer = () => {
-  const [ResultadoItems, setResultadoItems] = useState([]);
+  const [products, setProducts] = useState([]);
   const {categoryId} = useParams()
 
-  // const estado = useCartContext();
+  const getProducts = async () => {
+    categoryId ?
+    db.collection("products")
+    .where('categoria','==',`${categoryId}`)
+    .onSnapshot((querySnapshot) => {
+      const docs = [];
+      querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), id: doc.id })
+      });
+      setProducts(docs)
+    })
+    :
+    db.collection("products").onSnapshot((querySnapshot) => {
+      const docs = [];
+      querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), id: doc.id })
+      });
+      setProducts(docs)
+    })
+  };
+
+  useEffect (()=> {
+    getProducts();
+  }, [categoryId]);
   
-  useEffect(() => {
-    const productsService = new Promise((resolve, reject) => {
-        setTimeout(() => {
-        
-            categoryId ?
-            resolve(items.filter(e=>e.categoria === categoryId))
-            :
-            resolve(items)
-        }, 2000);
-      })
-
-      productsService.then((items) => {
-        setResultadoItems(items)
-      })
-      }, [categoryId]);
-
     return(
         <div>
           <h4>{categoryId}</h4>
             <div>
-                {<ItemList items={ResultadoItems} />}
+                {<ItemList items={products} />}
             </div>
         </div>
     )

@@ -6,6 +6,7 @@ import "./ItemDetail.css";
 import { useCartContext } from '../../context/CartContext';
 const ItemDetail = ({ item }) => {
   const{ addToCart } = useCartContext();
+  // console.log('Item: ', item)
   
   const onAdd = (count) => {
     addToCart(item,count)

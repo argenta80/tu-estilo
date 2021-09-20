@@ -1,43 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import ItemDetail from '../ItemDetail/ItemDetail'
-import { items } from "../../services/productsService";
-import Spinner from '../Spinner/Spinner';
+// import Spinner from '../Spinner/Spinner';
 import './ItemDetailContainer.css'
 import { useParams } from 'react-router-dom';
 import { db } from '../../firebase';
 
 
-const productsService = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    resolve(items);
-  }, 2000);
-});
-
 const ItemDetailContainer = () => {
-  const [ResultadoItems, setResultadoItems] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const {itemId} = useParams()
 
-  const [products, setProducts] = useState([]);
-
-  const getProducts = async () => {
-    db.collection("products").onSnapshot((querySnapshot) => {
+  const [filteredProduct, setProducts] = useState({});
+  
+  const getProduct = async () => {
+    db.collection("products")
+    .onSnapshot((querySnapshot) => {
+      const docs = [];
       querySnapshot.forEach((doc) => {
-        console.log(doc.data(), doc.id);
-        
+        docs.push({ ...doc.data(), id: doc.id })
       });
+        const filteredProduct = docs.filter((product) => {
+          return product.id === `${itemId}`})
+      setProducts(filteredProduct[0])
+
     });
-    // const q = query(collection(db, 'products'));
-    // const querySnapshot = await getDocs(q);
-    // querySnapshot.forEach((doc) => {
-    //   console.log(doc.id, '=>', doc.data);
-    // });
   };
 
 
-  useEffect (()=> {
-    getProducts();
-  }, []);
+   useEffect (()=> {
+     getProduct()
+   }, [itemId]);
   
  /*  useEffect(() => {
     productsService 
@@ -50,11 +42,11 @@ const ItemDetailContainer = () => {
         .finally(() => setIsLoading(false));
   }, [itemId]); */
 
-  return (
+    return (
 
     
     <div className='ItemDetailContainer'>
-      { isLoading ? <Spinner /> : <ItemDetail item={ResultadoItems} />}
+      { /* isLoading ? <Spinner /> : */ <ItemDetail item={filteredProduct} />}
     </div>
   )
 }
