@@ -39,7 +39,12 @@ const NavBar = () => {
                     </ul>
                     </li>  
                 </ul>
-                        <div><CartWidget icon={faShoppingCart} />{totalItems}</div>
+                        <div>
+                        <Link to={{ pathname: "/cart" }}> 
+                            <CartWidget icon={faShoppingCart} />{totalItems}
+                        </Link>    
+                        </div>
+                        
                 </div>
             </div>
         </nav>
