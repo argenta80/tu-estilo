@@ -7,6 +7,8 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { CartContext } from '../../context/CartContext';
+import  Formulario from '../Formulario/Formulario';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,12 +37,37 @@ const Cart = () =>{
     const classes = useStyles();
     const { cart, removeCart} = useContext(CartContext);
 
+     const handleOrder = () => {
+      const myItems = [];
+      let totalQuantity = 0;
+
+      cart.forEach((item) => {
+        //updateStockInProduct(item);
+        //console.log('item:', item)
+        totalQuantity += item.quantity * item.price;
+        myItems.push({
+          title: item.title,
+          id: item.id,
+          price: item.price,
+        });
+      });
+    }
+
+    handleOrder();
     return(
         <div>
-            
+        
+           <div className= "col">
+           <Formulario />
+           </div>
+         
         {cart.length !==0 ? (
-            cart.map((cart, i) => {
-            return(                
+          cart.map((cart, i) => {
+            return( 
+              <div className="container">
+                <div className="row">
+                  <div className="col">
+                  <container>
                 <div className={classes.root}>
                     <Paper className={classes.paper}>
                         <Grid container spacing={2}>
@@ -66,7 +93,7 @@ const Cart = () =>{
                                 <Typography variant="body2" style={{ cursor: 'pointer' }}>
                                     <Button
                                         onClick={()=>{
-                                            removeCart(cart.id)
+                                          removeCart(cart.id)
                                         }}>
                                         Remover
                                     </Button>
@@ -80,6 +107,10 @@ const Cart = () =>{
                         </Grid>
                     </Paper>
                 </div>
+              </container>
+                  </div>
+                </div>
+              </div>             
             );
             })
         ) : (
