@@ -4,6 +4,7 @@ import Carousel from '../Carousel/Carousel';
 import ItemCounter from  '../ItemCounter/ItemCounter'
 import "./ItemDetail.css";
 import { useCartContext } from '../../context/CartContext';
+
 const ItemDetail = ({ item }) => {
   const{ addToCart } = useCartContext();
   
@@ -36,7 +37,7 @@ const ItemDetail = ({ item }) => {
                 Disponibilidad: {item.stock}
                 </p>
               </Container>
-              <ItemCounter   stock={item.stock} onAdd={onAdd}/>
+              <ItemCounter item={item} onAdd={onAdd}/>
             </Grid.Column>
           </Grid>
           <Divider vertical />

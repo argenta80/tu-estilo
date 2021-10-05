@@ -1,8 +1,9 @@
-import React, {Fragment, useState, useContext} from 'react';
+import React, {Fragment, useState, useContext, useEffect} from 'react';
 import { useForm } from 'react-hook-form';
-import { Card } from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import { CartContext } from '../../context/CartContext';
 import { db } from '../../firebase';
+
 
 
 
@@ -10,79 +11,94 @@ const Formulario = () => {
   const {register, errors, handleSubmit} = useForm();
   
   const { cart, setCart} = useContext(CartContext);
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [buyer, setBuyer] = useState({
     nombre: '',
     email: '',
     telefono: ''
   })
 
-  
-  const handleInputChange = (event) => {
-    setBuyer({
-      ...buyer,
-      [event.target.name] : event.target.value
+  useEffect(() => {
+    setBuyer({ nombre: nombre, telefono: telefono, email: email });
+  }, [nombre, telefono, email]);
 
-    })
+  const handleClient = () => {
+    console.log('handleClient');
+    if (nombre !== "" && email !== "" && telefono !== ""){
+      setBuyer({ nombre: nombre, email: email, telefono: telefono });
+      console.log('handleOrder');
+      handleOrder();
+    }else{
+      const error = 'Todos los Campos son Obligatorios';
+      console.log('Error: ', error)
+    }
   }
 
-  const onSubmit = (data, event) =>{
-    event.preventDefault();
-    
-
-  }
+  console.log('buyer: ', buyer)
 
   const handleOrder = () =>{
     const myItems = [];
     let totalQuantity = 0;
     cart.forEach((item) => {
-      console.log(item.price, item.quantity);
-      let subQuantity = item.price * item.quantity
-      console.log(subQuantity)
+      updateStockInProduct(item);
       totalQuantity += item.price * item.quantity
       myItems.push({
         title: item.name,
         id   : item.id,
-        price: totalQuantity
+        price: item.price
       })
     })
     const myOrder = {
       buyer: buyer,
       items: myItems,
       total: totalQuantity,
-      date: '26-09-2021',
+      date: 'Date.now()' ,
     };
+    console.log(myOrder);
+
     saveOrder(myOrder);
     console.log(myOrder);
   }
 
 
-  const saveOrder = async (order) => {
-		await db.collection('compras').doc().set(order);
-		console.log('Producto Agregado!');
-		db.collection('compras').onSnapshot((querySnapshot) => {
-			//querySnapshot.forEach((doc) => {
-		
-			//});
-		});
-	};
+   const updateStockInProduct = async (item) => {    
+     const productRef = db.collection('products');
+     await productRef.doc(item.id).update({
+       stock: item.stock - item.quantity
+     });
+   };
   
-  handleOrder();
+  const saveOrder = async (order) => {
+    
+		//const data = await db.collection('compras').doc().set(order);
+    db.collection("compras2").doc().set(order)
+      .then(() => {
+        console.log("Document successfully written!");
+      });
+    // console.log('Data:', data )
+	};
+
+
+  
+  // handleOrder();
   return (
     <Fragment>
-        <form className="row" onSubmit={handleSubmit(onSubmit)}>
+        <form className="row">
         <div display= 'flex'
              justifyContent= 'center'>
         <Card>
            <Card.Header>Finaliza tu compra</Card.Header>
            {/* <Card.Header>Total: ${totalQuantity}</Card.Header> */}
             <Card.Content>
-              <div class="mb-3">
+              <div className="mb-3">
                 <input
                   placeholder="Nombre de facturacion"
                   className="form-control my-2"
                   type="text"
                   name="nombre"
-                  onChange={handleInputChange}
+                  onChange={(e) => setNombre(e.target.value)}
                   ref={
                     register({
                       required: {value:true, message: 'Campo obligatorio'},
@@ -95,13 +111,13 @@ const Formulario = () => {
                       {errors.nombre.message}
                     </span>}
               </div>
-              <div class="mb-3">
+              <div className="mb-3">
                 <input
                   placeholder="Email"
                   className="form-control my-2"
                   type="email"
                   name="email"
-                  onChange={handleInputChange}
+                  onChange={(e) => setEmail(e.target.value)}
                   ref={
                     register({
                       required: {value:true, message: 'Campo obligatorio'},
@@ -114,13 +130,13 @@ const Formulario = () => {
                       {errors.email.message}
                     </span>}
               </div>
-              <div class="mb-3">
+              <div className="mb-3">
                 <input
                   placeholder="Telefono de contacto"
                   className="form-control my-2"
                   type="tel"
                   name="telefono"
-                  onChange={handleInputChange}
+                  onChange={(e) => setTelefono(e.target.value)}
                   ref={
                     register({
                       required: {value:true, message: 'Campo obligatorio'},
@@ -133,14 +149,12 @@ const Formulario = () => {
                       {errors.telefono.message}
                     </span>}
               </div>
-              <div class="mb-3">
-                 <button 
-                  className="btn btn-primary" 
-                  type="submit"
-                  onClick={() => {
-                    handleOrder();
-                  }}
-                  >Realizar Compra</button>
+              <div className="mb-3">
+                 <Button 
+                  className="btn btn-primary"
+                  disabled={!(buyer.nombre !== "" && buyer.email !== "" && buyer.telefono !== "")} 
+                  onClick={ () => handleClient() }
+                  >Realizar Compra</Button>
               </div>
             </Card.Content>
         </Card>

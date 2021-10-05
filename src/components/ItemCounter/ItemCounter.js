@@ -1,17 +1,22 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import { Icon, Button, Container, Segment} from 'semantic-ui-react'
 import { Link } from "react-router-dom";
+import { CartContext } from '../../context/CartContext'; 
 import 'semantic-ui-css/semantic.min.css';
+
 
 
 
 const ItemCounter = (props) => {
   const [counter, setCounter] = useState(0);
+  const {getQuantityByItem} = useContext(CartContext);
   const incrementalBtn = document.getElementsByClassName('incrementalBtn');
   const decrementalBtn = document.getElementsByClassName('decrementalBtn');
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleIncrement = () => {
-    counter < props.stock ? setCounter( counter + 1) : incrementalBtn.disabled = false ;
+    const quantity = getQuantityByItem(props.item.id) + counter;
+    (quantity < props.item.stock) ? setCounter( counter + 1) : setShowAlert(true);
   }
 
   const handleDecrement = () => {
@@ -26,6 +31,8 @@ const ItemCounter = (props) => {
           <Button className='incrementalBtn' basic color ='green' onClick={handleIncrement}> <Icon className = 'plus'/> </Button>
           <Button className='decrementalBtn' basic color ='red' onClick={handleDecrement}> <Icon className = 'minus'/></Button>
         </div>
+        { showAlert && 
+          <div className="ui negative message"> <i class="close icon"></i> <div class="header"> Error </div> <p>Este Articulo no tiene Disponibilidad </p></div>}
         <div>
         {counter > 0 && (
               <Link
@@ -34,7 +41,7 @@ const ItemCounter = (props) => {
                 }}
               >
                 <Button variant="contained" color="primary" onClick={() => props.onAdd(counter)}>
-                  Terminar mi compra
+                  Añdir al carrito
                 </Button>
               </Link>
           )}

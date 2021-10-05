@@ -10,6 +10,7 @@ import Header from './components/Header/Header';
 import { ItemListContainer } from './components/ItemListContainer/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer'
 import Cart from './components/Cart/Cart';
+import FromContainer from './components/FormContainer/FormContainer'
 
 
 class App extends React.Component {
@@ -41,6 +42,12 @@ class App extends React.Component {
                 <div>
                   <Cart/>
                 </div>
+              </Route>
+              <Route path='/formulario'>
+                <div>
+                  <FromContainer />
+                </div>
+
               </Route>
             </Switch>
           </div>

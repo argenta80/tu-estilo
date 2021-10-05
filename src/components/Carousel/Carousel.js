@@ -5,19 +5,19 @@ const Carousel = (props) =>{
     return(
         <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                <img src={props.img1} className="d-block w-100" alt="..."/>
+                <img src={props.img1} className="img-fluid" alt="..."/>
                 </div>
                 <div className="carousel-item">
-                <img src={props.img2} className="d-block w-100" alt="..."/>
+                <img src={props.img2} className="img-fluid" alt="..."/>
                 </div>
                 <div className="carousel-item">
-                <img src={props.img3} className="d-block w-100" alt="..."/>
+                <img src={props.img3} className="img-fluid" alt="..."/>
                 </div>
             </div>
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
