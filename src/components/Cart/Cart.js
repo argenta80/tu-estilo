@@ -93,11 +93,11 @@ const Cart = () =>{
         }
         <table>
             <tr>
-              <th className='col-md-8'>
+              <th className='col-md-8' >
                 {cart.length !==0 && (
                   cart.map((cart, i) => {
                     return( 
-                      <div className="container">
+                      <div className="container" key={i}>
                         <div className="row">
                           <container>
                             <div className={classes.root}>

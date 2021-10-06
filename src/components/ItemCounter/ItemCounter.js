@@ -10,7 +10,7 @@ import 'semantic-ui-css/semantic.min.css';
 const ItemCounter = (props) => {
   const [counter, setCounter] = useState(0);
   const {getQuantityByItem} = useContext(CartContext);
-  const incrementalBtn = document.getElementsByClassName('incrementalBtn');
+  //const incrementalBtn = document.getElementsByClassName('incrementalBtn');
   const decrementalBtn = document.getElementsByClassName('decrementalBtn');
   const [showAlert, setShowAlert] = useState(false);
 

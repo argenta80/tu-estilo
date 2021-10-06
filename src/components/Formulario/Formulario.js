@@ -3,72 +3,105 @@ import React, {Fragment, useState, useContext, useEffect} from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom";
 import { Card, Button, Modal } from 'semantic-ui-react';
+import { makeStyles } from '@material-ui/styles';
 import { CartContext } from '../../context/CartContext';
+import { useHistory } from 'react-router-dom';
 import { db } from '../../firebase';
 
 
 function exampleReducer(state, action) {
   switch (action.type) {
-    case 'OPEN_MODAL':
-      return { open: true, dimmer: action.dimmer }
-    case 'CLOSE_MODAL':
-      return { open: false }
-    default:
-      throw new Error()
+  case 'CONFIG_CLOSE_ON_DIMMER_CLICK':
+  return { ...state, closeOnDimmerClick: action.value }
+  case 'CONFIG_CLOSE_ON_ESCAPE':
+  return { ...state, closeOnEscape: action.value }
+  case 'OPEN_MODAL':
+  return { ...state, open: true }
+  case 'CLOSE_MODAL':
+  return { ...state, open: false }
+  default:
+  throw new Error()
   }
-}
-
-
-const Formulario = () => {
-  const {register, errors} = useForm();
-  const [total, setTotal] = useState(0);
-  const { cart, clear } = useContext(CartContext);
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [buyer, setBuyer] = useState({
-    nombre: '',
-    email: '',
-    telefono: ''
-  })
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+    modal:{
+      position: 'absolute',
+      width: 400,
+      // boxShadow: theme.boxShadow[5],
+      padding: "16px 32px 24px",
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+    }
+  }))
+  const Formulario = () => {
+    const {register, errors} = useForm();
+    const [total, setTotal] = useState(0);
+    const { cart, clear } = useContext(CartContext);
+    const [nombre, setNombre] = useState("");
+    const [email, setEmail] = useState("");
+    const [telefono, setTelefono] = useState("");
+    const [ordenId, setOrdenId] = useState("");
+    const [buyer, setBuyer] = useState({
+      nombre: '',
+      email: '',
+      telefono: ''
+    })
+    const history = useHistory();
+    const styles = useStyles();
 
   const [state, dispatch] = React.useReducer(exampleReducer, {
+    closeOnEscape: true,
+    closeOnDimmerClick: true,
     open: false,
     dimmer: undefined,
-  })
-  const { open, dimmer, size } = state
+    })
+    const { open, closeOnEscape, closeOnDimmerClick } = state
 
-  const openModal = () => dispatch({ type: 'OPEN_MODAL', dimmer: 'blurring', size: 'mini' })
-
-  const body = (<Modal
-                  dimmer={dimmer}
-                  open={open}
-                  onClose={() => dispatch({ type: 'CLOSE_MODAL', size: 'mini' })}
-                >
-                  <Modal.Header>Su Compra Se realizo con Exito</Modal.Header>
-                    <Modal.Content>
-                      Let Google help apps determine location. This means sending anonymous
-                      location data to Google, even when no apps are running.
-                    </Modal.Content>
-                  <Modal.Actions>
-                  <Link to={"/"}>
-                    <Button positive onClick={() => dispatch({ type: 'CLOSE_MODAL' })}>
-                     Agree
-                    </Button>
-                  </Link>
-                  </Modal.Actions>
-                </Modal>);
+  const openModal = () => dispatch({ type: 'OPEN_MODAL'})
   
+  const body = (
+  <div>
+    <Modal
+      closeOnEscape={closeOnEscape}
+      closeOnDimmerClick={closeOnDimmerClick}
+      open={open}
+      onOpen={() => dispatch({ type: 'OPEN_MODAL' })}
+      onClose={() => goToHome()}
+      >
+      <Modal.Header>Su Compra Se realizo con Exito</Modal.Header>
+        <Modal.Content>
+          <p>La compra fue procesada satisfactoriamente, el numero de ID de la orden es: {ordenId}</p>
+          <p>Cualquier inconveniente pongase en contacto con atencion al cliente</p>
+        </Modal.Content>
+      <Modal.Actions>
+      <Link to={"/"}>
+        <Button positive onClick={() => dispatch({ type: 'CLOSE_MODAL' })}>
+        Agree
+        </Button>
+      </Link>
+      </Modal.Actions>
+    </Modal>
+  </div>
+  );
+
+
   useEffect(() => {
     setBuyer({ nombre: nombre, telefono: telefono, email: email });
   }, [nombre, telefono, email]);
 
+  const goToHome = () =>{
+    history.push(`/`)
+  }
+
   const handleClient = () => {
-    if (nombre !== "" && email !== "" && telefono !== ""){
+    if (nombre !== "" && email !== "" && telefono !== "" && (/^([0-9])*$/.test(telefono))){
       setBuyer({ nombre: nombre, email: email, telefono: telefono });
       handleOrder();
       openModal();
       clear();
+      
 
     }else{
       const error = 'Todos los Campos son Obligatorios';
@@ -123,9 +156,9 @@ const Formulario = () => {
   
   const saveOrder = async (order) => {
     
-    db.collection("Ordenes").doc().set(order)
-      .then(() => {
-        console.log("Document successfully written!");
+    db.collection("Ordenes").add(order)
+      .then((docRef) => {
+        setOrdenId(docRef.id)
       })
       .catch((error) =>{console.error('Error de escritura:', error);
     });
@@ -133,10 +166,9 @@ const Formulario = () => {
 
   return (
     <div>
-
     <Fragment>
-        <div className='formulario' display= 'flex'
-             justifyContent= 'center' align='center'>
+        <div className='formulario' 
+              align='center'>
         <Card>
            <Card.Header>
              <h2>Finaliza tu compra</h2>
@@ -187,7 +219,7 @@ const Formulario = () => {
                 <input
                   placeholder="Telefono de contacto"
                   className="form-control my-2"
-                  type="tel"
+                  type="number"
                   name="telefono"
                   onChange={(e) => setTelefono(e.target.value)}
                   ref={
@@ -205,7 +237,7 @@ const Formulario = () => {
               <div className="mb-3">
                  <Button 
                   className="btn btn-primary"
-                  disabled={!(buyer.nombre !== "" && buyer.email !== "" && buyer.telefono !== "")} 
+                  disabled={!(nombre !== "" && email !== "" && telefono !== "" && (/^([0-9])*$/.test(telefono)) &&  ((/^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/.test(email))))} 
                   onClick={ () => handleClient() }
                   >Realizar Compra</Button>
               </div>
@@ -213,7 +245,7 @@ const Formulario = () => {
         </Card>
         </div>
     </Fragment>
-    <div>
+    <div className={styles.modal}>
       {body}
     </div>
   </div>
