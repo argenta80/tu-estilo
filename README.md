@@ -11,58 +11,38 @@ Despues de clonar el ropositorio se debera instalar y correr:
 ### `npm install`
 ### `npm start`
 
+## Home
+Cuando accedemos al Home podemos encontrar todos los productos, de todas las categorias.
 
-### `npm test`
+![](ReadmeImages/Home.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+En la barra de navegacion encontraras todo lo relativo a categorias tanto de hombres como mujeres y el Carrito para poder realizar tu compra.
 
-### `npm run build`
+![](ReadmeImages/NavBar.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Elegir y comprar un producto
+Puedes hacer click en uno de los productos y el sitio te redireccionara a una pagina donde encontraras mas deralles del mismo y una galeria animada con mas fotos del producto.
+Desde este lugar podras agregar el producto a tu carrito.
+![](ReadmeImages/Producto.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Una vez seleccionada la cantidad de productos a agregar, se habilitara un boton para agregar al carrito. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![](ReadmeImages/addToCart.png)
 
-### `npm run eject`
+## Cart
+Una vez elegidos los productos y sus cantidades, podremos clickear en el Icono del Cart para ver su contenido.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![](ReadmeImages/Cart.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Vemos que en el icono se puede ver la cantidad total de productos. Tambien el detalle en cada tarjeta de la cantidad de productos a comprar y el total a pagar por cada uno de ellos.
+En el panel de la derecha podemos ver el total de la transaccion y podemos cancelar la compra y vaciar el carrito o terminar la compra que nos redirigiria a la parte final de la compra.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Finalizar Compra.
+Para completar el ultimo paso de la compra debemos completar un formulario y finalizarla. En ese formulario tendremos el total a abonar y al concretar la compra recibiremos un mensaje con el ID de la transaccion.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![](ReadmeImages/Facturacion.png)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Tu Estilo - Ecommerce te desea una satisfactoria experiencia en nuestro sitio
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
