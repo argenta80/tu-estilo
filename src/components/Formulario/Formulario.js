@@ -1,16 +1,27 @@
+import { stringLiteral } from '@babel/types';
 import React, {Fragment, useState, useContext, useEffect} from 'react';
 import { useForm } from 'react-hook-form';
-import { Card, Button } from 'semantic-ui-react';
+import { Card, Button, Modal } from 'semantic-ui-react';
 import { CartContext } from '../../context/CartContext';
 import { db } from '../../firebase';
 
 
+function exampleReducer(state, action) {
+  switch (action.type) {
+    case 'OPEN_MODAL':
+      return { open: true, dimmer: action.dimmer }
+    case 'CLOSE_MODAL':
+      return { open: false }
+    default:
+      throw new Error()
+  }
+}
 
 
 const Formulario = () => {
-  const {register, errors, handleSubmit} = useForm();
+  const {register, errors} = useForm();
   
-  const { cart, setCart} = useContext(CartContext);
+  const { cart, clear } = useContext(CartContext);
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [telefono, setTelefono] = useState("");
@@ -20,23 +31,46 @@ const Formulario = () => {
     telefono: ''
   })
 
+  const [state, dispatch] = React.useReducer(exampleReducer, {
+    open: false,
+    dimmer: undefined,
+  })
+  const { open, dimmer, size } = state
+
+  const openModal = () => dispatch({ type: 'OPEN_MODAL', dimmer: 'blurring', size: 'mini' })
+
+  const body = (<Modal
+                  dimmer={dimmer}
+                  open={open}
+                  onClose={() => dispatch({ type: 'CLOSE_MODAL', size: 'mini' })}
+                >
+                  <Modal.Header>Su Compra Se realizo con Exito</Modal.Header>
+                    <Modal.Content>
+                      Let Google help apps determine location. This means sending anonymous
+                      location data to Google, even when no apps are running.
+                    </Modal.Content>
+                  <Modal.Actions>
+                    <Button positive onClick={() => dispatch({ type: 'CLOSE_MODAL' })}>
+                     Agree
+                    </Button>
+                  </Modal.Actions>
+                </Modal>);
+  
   useEffect(() => {
     setBuyer({ nombre: nombre, telefono: telefono, email: email });
   }, [nombre, telefono, email]);
 
   const handleClient = () => {
-    console.log('handleClient');
     if (nombre !== "" && email !== "" && telefono !== ""){
       setBuyer({ nombre: nombre, email: email, telefono: telefono });
-      console.log('handleOrder');
       handleOrder();
+      openModal();
+      clear();
+
     }else{
       const error = 'Todos los Campos son Obligatorios';
-      console.log('Error: ', error)
     }
   }
-
-  console.log('buyer: ', buyer)
 
   const handleOrder = () =>{
     const myItems = [];
@@ -50,16 +84,15 @@ const Formulario = () => {
         price: item.price
       })
     })
+    const fecha = new Date()
+    console.log(fecha)
     const myOrder = {
       buyer: buyer,
       items: myItems,
       total: totalQuantity,
-      date: 'Date.now()' ,
+      date: fecha.toTimeString(),
     };
-    console.log(myOrder);
-
     saveOrder(myOrder);
-    console.log(myOrder);
   }
 
 
@@ -72,22 +105,20 @@ const Formulario = () => {
   
   const saveOrder = async (order) => {
     
-		//const data = await db.collection('compras').doc().set(order);
-    db.collection("compras2").doc().set(order)
+    db.collection("Ordenes").doc().set(order)
       .then(() => {
         console.log("Document successfully written!");
-      });
-    // console.log('Data:', data )
+      })
+      .catch((error) =>{console.error('Error de escritura:', error);
+    });
 	};
 
-
-  
-  // handleOrder();
   return (
+    <div>
+
     <Fragment>
-        <form className="row">
-        <div display= 'flex'
-             justifyContent= 'center'>
+        <div className='formulario' display= 'flex'
+             justifyContent= 'center' align='center'>
         <Card>
            <Card.Header>Finaliza tu compra</Card.Header>
            {/* <Card.Header>Total: ${totalQuantity}</Card.Header> */}
@@ -105,7 +136,7 @@ const Formulario = () => {
                       minLength: {value: 5, message: 'Minimo 5 caracteres'}
                     })
                   }
-                />
+                  />
                   { errors.nombre &&
                     <span>
                       {errors.nombre.message}
@@ -122,9 +153,9 @@ const Formulario = () => {
                     register({
                       required: {value:true, message: 'Campo obligatorio'},
                       minLength: {value: 5, message: 'Minimo 5 caracteres'}
-                     })
+                    })
                   }
-                />
+                  />
                   { errors.email &&
                     <span>
                       {errors.email.message}
@@ -143,7 +174,7 @@ const Formulario = () => {
                       minLength: {value: 5, message: 'Minimo 5 caracteres'}
                     })
                   }
-                />
+                  />
                   { errors.telefono &&
                     <span>
                       {errors.telefono.message}
@@ -159,9 +190,11 @@ const Formulario = () => {
             </Card.Content>
         </Card>
         </div>
-          
-        </form>
     </Fragment>
+    <div>
+      {body}
+    </div>
+  </div>
   )
 }
 

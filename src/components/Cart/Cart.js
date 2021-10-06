@@ -50,7 +50,6 @@ const Cart = () =>{
           totalQuantity: totalQuantity
         });
       });
-      console.log(totalQuantity)
       return totalQuantity
     };
 
@@ -62,10 +61,8 @@ const Cart = () =>{
       let amount =0;
       cart.forEach((item) => {
         amount += item.quantity * item.price
-        console.log('subtotal: ', total)
       })
       setTotal(amount)
-      console.log('total: ', total)
     }
     
     useEffect(() => {
@@ -178,9 +175,6 @@ const Cart = () =>{
               </th>
             </tr>
           </table>
-        
-          
-         
         </div>
 
 
