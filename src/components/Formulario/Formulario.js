@@ -1,6 +1,7 @@
-import { stringLiteral } from '@babel/types';
+
 import React, {Fragment, useState, useContext, useEffect} from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
 import { Card, Button, Modal } from 'semantic-ui-react';
 import { CartContext } from '../../context/CartContext';
 import { db } from '../../firebase';
@@ -20,7 +21,7 @@ function exampleReducer(state, action) {
 
 const Formulario = () => {
   const {register, errors} = useForm();
-  
+  const [total, setTotal] = useState(0);
   const { cart, clear } = useContext(CartContext);
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
@@ -50,9 +51,11 @@ const Formulario = () => {
                       location data to Google, even when no apps are running.
                     </Modal.Content>
                   <Modal.Actions>
+                  <Link to={"/"}>
                     <Button positive onClick={() => dispatch({ type: 'CLOSE_MODAL' })}>
                      Agree
                     </Button>
+                  </Link>
                   </Modal.Actions>
                 </Modal>);
   
@@ -72,6 +75,22 @@ const Formulario = () => {
     }
   }
 
+  const handleTotal = () =>{
+    let amount =0;
+    cart.forEach((item) => {
+      amount += item.quantity * item.price
+    })
+    setTotal(amount)
+  }
+  
+  useEffect(() => {
+    handleTotal();
+  },[]);
+
+  useEffect(() => {
+    handleTotal();
+  },[cart]);
+
   const handleOrder = () =>{
     const myItems = [];
     let totalQuantity = 0;
@@ -85,7 +104,6 @@ const Formulario = () => {
       })
     })
     const fecha = new Date()
-    console.log(fecha)
     const myOrder = {
       buyer: buyer,
       items: myItems,
@@ -120,8 +138,12 @@ const Formulario = () => {
         <div className='formulario' display= 'flex'
              justifyContent= 'center' align='center'>
         <Card>
-           <Card.Header>Finaliza tu compra</Card.Header>
-           {/* <Card.Header>Total: ${totalQuantity}</Card.Header> */}
+           <Card.Header>
+             <h2>Finaliza tu compra</h2>
+             <h3>El monto total a abonar es <strong>${total}</strong></h3>
+             <p>Complete sus datos para finalizar la operacion</p>
+             </Card.Header>
+           
             <Card.Content>
               <div className="mb-3">
                 <input

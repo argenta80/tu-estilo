@@ -35,7 +35,7 @@ const Cart = () =>{
 
     const classes = useStyles();
     const { cart, removeCart, clear} = useContext(CartContext);
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState(0);
 
      const handleOrder = () => {
       const myItems = [];

@@ -4,7 +4,6 @@ import './FormContainer.css'
 
 const FormContainer = (props) => {
 
-    console.log('Formulario total:', props.total )
     return (
         <div className='formContainer'>
             <Formulario total ={props.total}/>
